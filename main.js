@@ -6,7 +6,9 @@ categoryBtn.forEach((menu) => {
   menu.addEventListener('click', (event) => getNewsByCategory(event));
 });
 
-let url = new URL(`/top-headlines?country=us&apiKey=${API_Key}`);
+let url = new URL(
+  `https://news-times-projectbyshkim.netlify.app/top-headlines?country=us&apiKey=${API_Key}`
+);
 
 let totalResult = 0;
 let page = 1;
@@ -38,14 +40,18 @@ const getNews = async () => {
 };
 
 const getLatestNews = async () => {
-  url = new URL(`/top-headlines?apiKey=${API_Key}`);
+  url = new URL(
+    `https://news-times-projectbyshkim.netlify.app/top-headlines?apiKey=${API_Key}`
+  );
 
   getNews();
 };
 
 const getNewsByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
-  url = new URL(`/top-headlines?category=${category}&apiKey=${API_Key}`);
+  url = new URL(
+    `https://news-times-projectbyshkim.netlify.app/top-headlines?category=${category}&apiKey=${API_Key}`
+  );
   page = 1;
   getNews();
 };
@@ -72,7 +78,7 @@ const getNewsBySearch = async () => {
   ];
   if (categories.includes(keyword)) {
     url = new URL(
-      `/top-headlines?country=kr&category=${keyword}&apiKey=${API_Key}`
+      `https://news-times-projectbyshkim.netlify.app/top-headlines?country=kr&category=${keyword}&apiKey=${API_Key}`
     );
 
     if (newsList.length === 0) {
@@ -81,7 +87,9 @@ const getNewsBySearch = async () => {
       getNews();
     }
   } else {
-    url = new URL(`/top-headlines?q=${keyword}&country=kr&apiKey=${API_Key}`);
+    url = new URL(
+      `https://news-times-projectbyshkim.netlify.app/top-headlines?q=${keyword}&country=kr&apiKey=${API_Key}`
+    );
     if (newsList.length === 0) {
       alert(`No Result! Put Different Keyword`);
     } else {

@@ -1,0 +1,252 @@
+.head-line {
+  margin-top: 1.5em;
+  display: flex;
+  justify-content: center;
+}
+.head-bar {
+  display: flex;
+  margin-top: 25px;
+}
+.container .search {
+  font-size: 18px;
+  border-radius: 5px;
+  padding: 9px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+.container .search:hover {
+  background-color: #ebebebc2;
+  transition: background-color 0.2s ease-in;
+}
+.container .search.active {
+  background-color: #ebebebdf;
+  transition: background-color 0.2s ease-in;
+}
+#textSearch,
+#goButton {
+  display: none;
+  transition: 0.2s ease-in-out;
+}
+.container #burger {
+  font-size: 18px;
+  margin-right: 10px;
+  display: none;
+}
+.head-bar input {
+  border: 2px solid black;
+  height: 35px;
+  border-radius: 3px;
+  margin-right: 5px;
+  width: 14em;
+}
+.head-button {
+  border: none;
+
+  height: 35px;
+  font-size: 11px;
+  padding: 9px 9px 9px;
+  border-radius: 5px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.65);
+  letter-spacing: 1px;
+}
+.head-line svg {
+  width: 430px;
+}
+.menus {
+  margin-top: 1.5em;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-top: 1px solid #ebebeb;
+  border-bottom: 4px double black;
+}
+.menus button {
+  border: none;
+  background: none;
+  margin: 13px 20px;
+  padding: 0 10px;
+}
+.menus button:hover {
+  background-color: #ebebeb;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.head-button:hover {
+  background-color: rgba(0, 0, 0, 0.508);
+}
+.news-image-size {
+  max-width: 100%;
+  max-height: 100%;
+}
+.news {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.398);
+  padding: 20px;
+}
+#content {
+  max-width: 100%;
+}
+.author {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.514);
+}
+p {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.514);
+}
+h5 {
+  margin-top: 15px;
+  line-height: 30px;
+  color: #333333e9;
+}
+h2 {
+  line-height: 40px;
+}
+#burger {
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 9px;
+}
+#burger:hover {
+  border-radius: 5px;
+  padding: 9px;
+  background-color: #ebebebc2;
+  transition: background-color 0.2s ease-in;
+}
+.sideBar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #bababa;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 70px;
+  padding-bottom: 20px;
+}
+
+.sideBar #toggleButton {
+  padding: 20px 8px 20px 32px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+  margin-top: 12px;
+}
+
+.sideBar #toggleButton:hover {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.65);
+}
+.closebtn:hover {
+  color: white;
+}
+.closebtn {
+  position: absolute;
+  top: 0;
+  right: 30px;
+  font-size: 23px;
+  color: #818181;
+  margin-left: 100px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.errorArea {
+  text-align: center;
+}
+.errorArea img {
+  width: 25em;
+  height: 0%;
+}
+.errorArea h3 {
+  margin-top: 0;
+}
+input {
+  letter-spacing: 0.8px;
+  padding-left: 10px;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 75px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.pagination li {
+  width: 45px;
+  text-align: center;
+  z-index: 0;
+}
+a.page-link {
+  display: flex;
+  justify-content: center;
+  font-size: 15px;
+}
+@media screen and (max-width: 850px) {
+  .menus button {
+    display: none;
+  }
+  .container #burger {
+    display: block;
+  }
+  .head-bar input {
+    height: 33px;
+  }
+  .head-button {
+    height: 33px;
+  }
+  .pagination li {
+    width: 35px;
+    text-align: center;
+  }
+}
+@media screen and (max-width: 700px) {
+  .sideBar #toggleButton {
+    font-size: 16px;
+  }
+  .head-bar {
+    margin-top: 27px;
+  }
+  .container #burger {
+    font-size: 16px;
+  }
+  .container .search {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .closebtn {
+    font-size: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  .sideBar #toggleButton {
+    font-size: 17px;
+  }
+  .menus button {
+    display: none;
+  }
+  .container #burger {
+    font-size: 16px;
+    margin-left: 5px;
+  }
+  .head-bar input {
+    border: 2px solid black;
+    height: 33px;
+    width: 150px;
+    border-radius: 3px;
+    margin-right: 5px;
+  }
+  .errorArea img {
+    width: 20em;
+    height: 80%;
+  }
+  .errorArea {
+    padding-top: 20px;
+  }
+}

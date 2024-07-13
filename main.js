@@ -1,9 +1,12 @@
 const API_Key = 'e1951a07c46347df87e230368a039c0d';
 let newsList = [];
-
 const categoryBtn = document.querySelectorAll('.menus button');
+
 categoryBtn.forEach((menu) => {
-  menu.addEventListener('click', (event) => getNewsByCategory(event));
+  menu.addEventListener(
+    'click',
+    async (event) => await getNewsByCategory(event)
+  );
 });
 
 let url = new URL(
@@ -44,7 +47,7 @@ const getLatestNews = async () => {
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?apiKey=${API_Key}`
   );
 
-  getNews();
+  await getNews();
 };
 
 const getNewsByCategory = async (event) => {
@@ -53,12 +56,15 @@ const getNewsByCategory = async (event) => {
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?category=${category}&apiKey=${API_Key}`
   );
   page = 1;
-  getNews();
+  await getNews();
 };
 
 const menuSide = document.querySelectorAll('#toggleButton');
 menuSide.forEach((menu) => {
-  menu.addEventListener('click', (event) => getNewsByCategory(event));
+  menu.addEventListener(
+    'click',
+    async (event) => await getNewsByCategory(event)
+  );
 });
 
 const getNewsBySearch = async () => {
@@ -84,7 +90,7 @@ const getNewsBySearch = async () => {
     if (newsList.length === 0) {
       alert(`No Result! Put Different Keyword`);
     } else {
-      getNews();
+      await getNews();
     }
   } else {
     url = new URL(
@@ -93,7 +99,7 @@ const getNewsBySearch = async () => {
     if (newsList.length === 0) {
       alert(`No Result! Put Different Keyword`);
     } else {
-      getNews();
+      await getNews();
     }
   }
 };
@@ -122,18 +128,18 @@ const render = () => {
       let publishedAt = moment(news.publishedAt).fromNow();
 
       return `<div class="row news">
- <div class="col-lg-4 photo">
-   <img class="news-image-size" src="${
-     news.urlToImage ||
-     'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg'
-   }" />
- </div>
- <div class="col-lg-8" id="content">
-   <h2>${news.title}</h2>
-   <p>${description}</p>
-   <div class="author">${sources} * ${publishedAt}</div>
- </div>
-</div>`;
+        <div class="col-lg-4 photo">
+          <img class="news-image-size" src="${
+            news.urlToImage ||
+            'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg'
+          }" />
+        </div>
+        <div class="col-lg-8" id="content">
+          <h2>${news.title}</h2>
+          <p>${description}</p>
+          <div class="author">${sources} * ${publishedAt}</div>
+        </div>
+      </div>`;
     })
     .join('');
   document.getElementById('news-board').innerHTML = newsHTML;
@@ -141,10 +147,10 @@ const render = () => {
 
 const errorRender = (errorMessage) => {
   const errorHTML = `<div class="errorArea">
-  <img src="./errorImage.jpg" alt="error-message">
-          <h3>${errorMessage}</h3>
-          <p>We couldn't find what you search for <br> Try searching again.</p>
-          </div>`;
+    <img src="./errorImage.jpg" alt="error-message">
+    <h3>${errorMessage}</h3>
+    <p>We couldn't find what you search for <br> Try searching again.</p>
+  </div>`;
   document.getElementById('news-board').innerHTML = errorHTML;
 };
 
@@ -162,19 +168,16 @@ const pageNationRender = () => {
 
   pageNationHTML += `<li class="page-item ${page === 1 ? 'd-none' : ''}  ${
     page === 2 ? 'd-none' : ''
-  }" onclick ="${page !== 1 ? `moveToPage(1)` : ''} ">
-<a class="page-link" aria-label="Previous">
-<span aria-hidden="true">&laquo;</span>
-</a>
-</li>`;
+  }" onclick ="${
+    page !== 1 ? `moveToPage(1)` : ''
+  } "> <a class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li>`;
 
   pageNationHTML += `<li class="page-item ${
     page === 1 ? 'd-none' : ''
-  } " onclick ="${page !== 1 ? `moveToPage(${page - 1})` : ''}">
-<a class="page-link" aria-label="Previous">
-  <span aria-hidden="true">&lsaquo;</span>
-</a>
-</li>`;
+  } " onclick ="${
+    page !== 1 ? `moveToPage(${page - 1})` : ''
+  }"> <a class="page-link" aria-label="Previous">
+    <span aria-hidden="true">&lsaquo;</span> </a> </li>`;
 
   let endPage = Math.min(lastPage, firstPage + 4);
   let startPage = Math.max(1, endPage - 4);
@@ -188,28 +191,23 @@ const pageNationRender = () => {
   pageNationHTML += `<li class="page-item ${
     page === totalPages ? 'd-none' : ''
   }" onclick="${page !== totalPages ? `moveToPage(${page + 1})` : ''}">
-  <a class="page-link" aria-label="Next">
-    <span aria-hidden="true">&rsaquo;</span>
-  </a>
-</li>`;
+    <a class="page-link" aria-label="Next">
+      <span aria-hidden="true">&rsaquo;</span>
+    </a> </li>`;
 
   pageNationHTML += `<li class="page-item ${
     page === totalPages ? 'd-none' : ''
   } ${page === totalPages - 1 ? 'd-none' : ''}" onclick ="${
     page !== totalPages ? `moveToPage(${totalPages})` : ''
-  }">
-<a class="page-link" aria-label="Previous">
-<span aria-hidden="true">&raquo;</span>
-</a>
-</li>`;
+  }"> <a class="page-link" aria-label="Previous"> <span aria-hidden="true">&raquo;</span> </a> </li>`;
 
   document.querySelector('.pagination').innerHTML = pageNationHTML;
 };
 
-const moveToPage = (pageNum) => {
+const moveToPage = async (pageNum) => {
   console.log('test', pageNum);
   page = pageNum;
-  getNews();
+  await getNews();
   window.scrollTo(0, 0);
 };
 
@@ -254,7 +252,7 @@ textBar.addEventListener('focus', function () {
   textBar.value = '';
 });
 
-headButton.addEventListener('click', getNewsBySearch);
+headButton.addEventListener('click', async () => await getNewsBySearch());
 
 burgerMenu.addEventListener('click', function openNav() {
   navBar.style.width = '200px';

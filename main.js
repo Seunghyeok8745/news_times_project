@@ -5,12 +5,13 @@ const categoryBtn = document.querySelectorAll('.menus button');
 categoryBtn.forEach((menu) => {
   menu.addEventListener(
     'click',
-    async (event) => await getNewsByCategory(event)
+    async (event) =>
+      await getNewsByCategory(event.target.textContent.toLowerCase())
   );
 });
 
 let url = new URL(
-  `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=us&apiKey=${API_Key}`
+  `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&apiKey=${API_Key}`
 );
 
 let totalResult = 0;
@@ -20,13 +21,13 @@ let groupSize = 5;
 
 const getNews = async () => {
   try {
-    url.searchParams.set('page', page); // &page=page
+    url.searchParams.set('page', page);
     url.searchParams.set('pagesize', pageSize);
     const response = await fetch(url);
     const data = await response.json();
     console.log('ddd', data);
     if (response.status === 200) {
-      if (data.articles.length == 0) {
+      if (data.articles.length === 0) {
         hidePageNation();
         throw new Error('No result found');
       }
@@ -44,26 +45,33 @@ const getNews = async () => {
 
 const getLatestNews = async () => {
   url = new URL(
-    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?apiKey=${API_Key}`
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&apiKey=${API_Key}`
   );
 
   await getNews();
 };
 
-const getNewsByCategory = async (event) => {
-  const category = event.target.textContent.toLowerCase();
+const getNewsByCategory = async (category) => {
   url = new URL(
-    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?category=${category}&apiKey=${API_Key}`
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&category=${category}&apiKey=${API_Key}`
   );
   page = 1;
-  await getNews();
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log('API response:', data);
+    await getNews();
+  } catch (error) {
+    console.error('API error:', error);
+  }
 };
 
 const menuSide = document.querySelectorAll('#toggleButton');
 menuSide.forEach((menu) => {
   menu.addEventListener(
     'click',
-    async (event) => await getNewsByCategory(event)
+    async (event) =>
+      await getNewsByCategory(event.target.textContent.toLowerCase())
   );
 });
 
